@@ -1,10 +1,8 @@
-version: 2
+version: 2.1
 jobs:
-  one:
-    docker:
-      - image: circleci/node:latest
+  build:
+    docker: 
+      - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
     steps:
-      - checkout
-      - run: echo "hello world"
-      - run: npm --version      
-
+      - checkout # check out the code in the project directory
+      - run: echo "hello world" # run the `echo` command
