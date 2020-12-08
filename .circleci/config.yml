@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  one:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: echo "hello world"
+      - run: npm --version      
+
