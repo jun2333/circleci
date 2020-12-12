@@ -3,14 +3,32 @@ jobs:
   build:
     docker: 
       - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
+    branches:
+      only:
+        - master
     steps:
       - add_ssh_keys:
           fingerprints:
             - "7f:77:a6:a5:9e:13:c8:4f:ce:8f:50:b7:91:a4:9f:39"
       - checkout # check out the code in the project directory
+      - restore_cache:
+          keys:
+            - dependencies
       - run: 
           name: Install
           command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies
       - run:
           name: Build
           command: yarn build
+      - run:
+          name: Prepare shell commands
+          # shell chmod +x 赋予执行权限
+          # 执行shell脚本
+          command: chmod +x scripts/deploy.sh
+      - run:
+          name: Run Deploy to Github pages
+          command: ./scripts/deploy.sh
