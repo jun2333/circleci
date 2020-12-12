@@ -3,9 +3,6 @@ jobs:
   build:
     docker: 
       - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
-    branches:
-      only:
-        - master
     steps:
       - add_ssh_keys:
           fingerprints:
