@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+  build:
+    docker: 
+      - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "7f:77:a6:a5:9e:13:c8:4f:ce:8f:50:b7:91:a4:9f:39"
+      - checkout # check out the code in the project directory
+      - run: 
+          name: Install
+          command: yarn install
+      - run:
+          name: Build
+          command: yarn build
